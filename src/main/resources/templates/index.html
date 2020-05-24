@@ -17,6 +17,10 @@
         <th>USERNAME</th>
         <th>PASSWORD</th>
         <th>FIRST NAME</th>
+        <th>LAST NAME</th>
+        <th>COUNTRY</th>
+        <th>YEAR OF BIRTH</th>
+
     </tr>
 
     <tr th:each="person : ${listPersons}">
@@ -25,6 +29,9 @@
         <td th:text="${person.username}">USERNAME</td>
         <td th:text="${person.password}">PASSWORD</td>
         <td th:text="${person.firstName}">FIRSTNAME</td>
+        <td th:text="${person.lastName}">LASTNAME</td>
+        <td th:text="${person.country}">COUNTRY</td>
+        <td th:text="${person.yearOfBirth}">YEAROFBIRTH</td>
 
         <td>
             <a th:href="@{'/edit/'+${person.id}}">Edit</a>
