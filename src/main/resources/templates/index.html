@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<a href="new">Create new person</a>
+<br/>
+
+<table border="1" cellpadding="10">
+
+
+    <tr>
+        <th>ID</th>
+        <th>USERNAME</th>
+        <th>PASSWORD</th>
+        <th>FIRST NAME</th>
+    </tr>
+
+    <tr th:each="person : ${listPersons}">
+
+        <td th:text="${person.id}">ID</td>
+        <td th:text="${person.username}">USERNAME</td>
+        <td th:text="${person.password}">PASSWORD</td>
+        <td th:text="${person.firstName}">FIRSTNAME</td>
+
+        <td>
+            <a th:href="@{'/edit/'+${person.id}}">Edit</a>
+            <a th:href="@{'/delete/'+${person.id}}">Delete</a>
+        </td>
+
+    </tr>
+
+</table>
+
+</body>
+</html>
