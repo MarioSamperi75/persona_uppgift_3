@@ -1,12 +1,14 @@
 package com.example.persona.domain;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Person {
+public class Person extends RepresentationModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

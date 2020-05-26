@@ -16,9 +16,9 @@ import java.util.Optional;
 public class PersonService {
 
     private PersonRepository personRepository;
-    private static final Logger log = LoggerFactory.getLogger(PersonService.class);
+    //private static final Logger log = LoggerFactory.getLogger(PersonService.class);
 
-    //--------------------------------------
+//--------------------------------------
     @Autowired
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;

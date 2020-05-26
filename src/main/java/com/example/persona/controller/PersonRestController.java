@@ -7,6 +7,8 @@ import com.example.persona.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,11 +38,37 @@ public class PersonRestController {
         return "hello Rest!!";
     }
 
-    // hämta en person utifrån dess ID
+    // hämta en person utifrån dess ID + hateoas links
     @RequestMapping(value = "/personByID/{id}")
     public Optional<Person> findPersonbyID(@PathVariable long id) {
-        return  personService.findPerson(id);
+        Optional<Person> result = personService.findPerson(id);
+
+
+        //get() för att kunna använda haslink
+        //isPresent för att undvika exception om id inte finns
+        if (result.isPresent()) {
+            if (!result.get().hasLink("all_books")) {
+                Link link1 = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonRestController.class).findAll()).withRel("all_people");
+                result.get().add(link1);
+            }
+
+            if (!result.get().hasLink("delete_book")) {
+                Link link1 = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonRestController.class).deleteByID(id)).withRel("delete_person");
+                result.get().add(link1);
+            }
+
+            if (!result.get().hasLink("add_book")) {
+                Link link1 = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonRestController.class).addUser(result.get())).withRel("add_person");
+                result.get().add(link1);
+            }
+        }
+        return  result;
     }
+
+
+
+
+
 
     // hämta alla personer
     @RequestMapping(value = "/all")
@@ -51,7 +79,7 @@ public class PersonRestController {
 
     // ta bort en person
     //bara get utan value?
-    //return respons annars blir nullpointer när vi använder hateoas
+    //behöver ha nåt objekt tillbaka annars blir nullpointer när vi använder hateoas. Response går bra.
     @RequestMapping(value = "/personByID/{id}/delete")
     public Response deleteByID(@PathVariable long id)
     {
@@ -82,51 +110,16 @@ public class PersonRestController {
     public Response addUser(@RequestBody Person person)
     {
         Response response = new Response("User added", false);
-        //if((person.getId()!=0) &&(person.getUsername()!=null) && person.getPassword()!=null ) {
+
+        //undvika items utan username och password
+        if(person.getUsername()!=null && person.getPassword()!=null )
+            //återanvänder rspponse som kommer från service (user added, true)
             response = personService.save(person);
-        //}
-        log.error(response.getMessage());
+        else
+            response.setMessage("User and password are required fields");
         return response;
 
 
     }
-
-
-
 
 }
-
-/* @RequestMapping(value = "/pidunJSON/{id}/delete",produces = "application/json")
-    public Response deleteByID(@PathVariable int id)
-    {
-        Response response=new Response("Pidun deleted",false);
-        int indexToRemove=-1;
-        for (int i = 0; i < pidunList.size(); i++) {
-            if(pidunList.get(i).getId()==id)
-                indexToRemove=i;
-
-        }
-        if(indexToRemove!=-1)
-        {
-            pidunList.remove(indexToRemove);
-            response.setStatus(true);
-        }
-        else
-            response.setMessage("Not found");
-
-        return response;
-    }
-
-    @PostMapping("/Pidun/add")
-    public Response addUser(@RequestBody Pidun pidun)
-    {
-        Response response=new Response("Pidun added",false);
-        if((pidun.getId()!=0) &&(pidun.getName()!=null) && pidun.getCost()!=0 && pidun.getPrice()!=0 ) {
-            pidunList.add(pidun);
-            response.setStatus(true);
-        }
-        else
-            response.setMessage("failed to add");
-        return response;
-
-    }*/

@@ -1,0 +1,9 @@
+body {
+    margin: auto;
+    width:  900px;
+}
+
+#new {
+    display: block;
+    margin: auto;
+}
