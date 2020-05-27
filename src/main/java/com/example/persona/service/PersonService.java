@@ -25,9 +25,21 @@ public class PersonService {
     }
 
 //--------------------------------------
+    // save får en check och går vidare om bara person INTE finns
+    // detta går inte bra för action update: personen finns!
+    // då får acton update en ny metod (updatePerson) utan check.
+
 
     @Transactional
-    public Response save(Person person) {
+    public Response updatePerson(Person person) {
+            Response response = new Response("User uppdated", true);
+            personRepository.save(person);
+        return response;
+    }
+
+
+    @Transactional
+    public Response saveNewPerson(Person person) {
         Response response =  checkIfUsernameAlreadyExists(person.getUsername());
 
         if (response.isStatus()==false) {

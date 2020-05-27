@@ -2,15 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>EditPerson</title>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
 </head>
-<body>
+<body class="body">
 
-<h1>Edit person</h1>
+<h1 class="title">Edit person</h1>
 
-<table>
+<table class="formTable">
 
-    <form action="#" th:action="@{/save}" th:object="${person_to_edit}" method="post">
+    <form action="#" th:action="@{/update}" th:object="${person_to_edit}" method="post">
 
         <tr>
 
@@ -90,18 +91,17 @@
             </td>
         </tr>
 
+        <br>
 
-        <tr>
-            <td>
-                <button type="submit">Edit</button>
+        <button class = "submit" type="submit">Edit</button>
 
-            </td>
+        <br>
 
-        </tr>
 
     </form>
 
 </table>
+
 
 </body>
 </html>

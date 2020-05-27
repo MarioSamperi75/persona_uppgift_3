@@ -114,7 +114,7 @@ public class PersonRestController {
         //undvika items utan username och password
         if(person.getUsername()!=null && person.getPassword()!=null )
             //återanvänder rspponse som kommer från service (user added, true)
-            response = personService.save(person);
+            response = personService.saveNewPerson(person);
         else
             response.setMessage("User and password are required fields");
         return response;

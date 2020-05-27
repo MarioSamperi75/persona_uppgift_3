@@ -19,6 +19,8 @@ public class Person extends RepresentationModel {
     private String country;
     private int yearOfBirth;
 
+//-------------------------------------
+
     public Person() {
     }
 
@@ -31,6 +33,8 @@ public class Person extends RepresentationModel {
         this.country = country;
         this.yearOfBirth = yearOfBirth;
     }
+
+//-------------------------------------
 
     public String getUsername() {
         return username;

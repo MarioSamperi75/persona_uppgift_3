@@ -27,9 +27,9 @@ public class PersonaApplication {
             Person person3 = new Person (   "mariozzz","mariosss678","Mario","Samperi", "Italy", 1975);
 
 
-            personService.save(person1);
-            personService.save(person2);
-            personService.save(person3);
+            personService.saveNewPerson(person1);
+            personService.saveNewPerson(person2);
+            personService.saveNewPerson(person3);
         });
     }
 

@@ -2,13 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>NewPerson</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
-<body>
+<body class="body">
 
-<h1>Create new person</h1>
+<h1 class="title">Create new person</h1>
 
-<table>
+<table class="formTable">
 
     <form action="#" th:action="@{/save}" th:object="${theperson}" method="post">
         <!--return newproduct instället för index i contro?-->
@@ -81,21 +82,16 @@
             </td>
         </tr>
 
+        <br>
 
+        <button class = "submit" type="submit">Save</button>
 
-
-
-        <tr>
-            <td>
-                <button type="submit">Save</button>
-
-            </td>
-
-        </tr>
+        <br>
 
     </form>
 
 </table>
+
 
 </body>
 </html>

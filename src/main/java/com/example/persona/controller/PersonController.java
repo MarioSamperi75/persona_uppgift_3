@@ -45,9 +45,20 @@ public class PersonController {
     public String savePerson(Person person, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "error";
-        personService.save(person);
+        personService.saveNewPerson(person);
         return "redirect:/";
     }
+
+    //samma som save, men anropar personService.update
+    //personService.update sparar utan att kolla om user redan finns
+    @PostMapping("/update")
+    public String updatePerson(Person person, BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "error";
+        personService.updatePerson(person);
+        return "redirect:/";
+    }
+
 
     @GetMapping("/edit/{id}")
     public String showEditPage(@PathVariable int id, Model model) {
