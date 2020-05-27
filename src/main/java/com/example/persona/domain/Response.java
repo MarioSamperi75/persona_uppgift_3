@@ -5,13 +5,16 @@ public class Response {
     private String message;
     private boolean status;
 
-    public Response() {
-    }
+//---------------------------------------------
+
+    public Response() {}
 
     public Response(String message, boolean status) {
         this.message = message;
         this.status = status;
     }
+
+//---------------------------------------------
 
     public String getMessage() {
         return message;

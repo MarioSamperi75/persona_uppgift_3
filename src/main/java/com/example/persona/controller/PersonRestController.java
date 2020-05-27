@@ -15,23 +15,22 @@ import java.util.List;
 import java.util.Optional;
 
 
-
-
-
 @RestController
 public class PersonRestController {
 
     private PersonService personService;
     private static final Logger log = LoggerFactory.getLogger(PersonService.class);
 
+//---------------------------------------------
 
-    public PersonRestController() {
-    }
+    public PersonRestController() {}
 
     @Autowired
     public PersonRestController(PersonService personService) {
         this.personService = personService;
     }
+
+//---------------------------------------------
 
     @RequestMapping("/provaRest")
     public String prova() {
@@ -43,10 +42,11 @@ public class PersonRestController {
     public Optional<Person> findPersonbyID(@PathVariable long id) {
         Optional<Person> result = personService.findPerson(id);
 
-
         //get() för att kunna använda haslink
         //isPresent för att undvika exception om id inte finns
         if (result.isPresent()) {
+
+            //för att undvika att hateoas länkar upprepas
             if (!result.get().hasLink("all_books")) {
                 Link link1 = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(PersonRestController.class).findAll()).withRel("all_people");
                 result.get().add(link1);
@@ -66,10 +66,6 @@ public class PersonRestController {
     }
 
 
-
-
-
-
     // hämta alla personer
     @RequestMapping(value = "/all")
     public List<Person> findAll() {
@@ -78,8 +74,8 @@ public class PersonRestController {
 
 
     // ta bort en person
-    //bara get utan value?
-    //behöver ha nåt objekt tillbaka annars blir nullpointer när vi använder hateoas. Response går bra.
+    // det går också bra att skriva bara getMapping utan value
+    //behöver ha något objekt tillbaka annars blir nullpointer när vi använder hateoas. Response går bra.
     @RequestMapping(value = "/personByID/{id}/delete")
     public Response deleteByID(@PathVariable long id)
     {
@@ -91,7 +87,6 @@ public class PersonRestController {
         for (int i = 0; i < all.size(); i++) {
             if(all.get(i).getId()==id)
                 indexToRemove=i;
-
         }
         if(indexToRemove!=-1)
         {
