@@ -1,12 +1,14 @@
 package com.example.persona.controller;
 
 import com.example.persona.domain.Person;
+import com.example.persona.domain.Response;
 import com.example.persona.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -15,6 +17,9 @@ import java.util.Optional;
 
 @Controller
 public class PersonController {
+
+    //response kommer från service, jag ska skicka den till client genom url parametrar
+    Response response;
     private PersonService personService;
 
 
@@ -47,8 +52,8 @@ public class PersonController {
     public String savePerson(Person person, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "error";
-        personService.saveNewPerson(person);
-        return "redirect:/";
+        response = personService.saveNewPerson(person);
+        return "redirect:/?response=" + response.getMessage();
     }
 
     //samma som save, men anropar personService.update
@@ -57,8 +62,8 @@ public class PersonController {
     public String updatePerson(Person person, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
             return "error";
-        personService.updatePerson(person);
-        return "redirect:/";
+        response = personService.updatePerson(person);
+        return "redirect:/?response=" + response.getMessage();
     }
 
 
@@ -74,8 +79,8 @@ public class PersonController {
 
     @GetMapping("/delete/{id}")
     public String deletePerson(@PathVariable long id) {
-        personService.delete(id);
-        return "redirect:/";
+        response = personService.delete(id);
+        return "redirect:/?response=" + response.getMessage();
     }
 
 

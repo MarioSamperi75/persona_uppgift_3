@@ -73,8 +73,10 @@ public class PersonService {
     }
 
     @Transactional
-    public void delete(long id) {
+    public Response delete(long id) {
+        Response response = new Response("Person deleted", true);
         personRepository.deleteById(id);
+        return response;
     }
 
 }
