@@ -23,8 +23,8 @@ public class PersonaApplication {
     public CommandLineRunner setUp(PersonService personService){
         return  (args -> {
             Person person1 = new Person (   "marioxxx","mariosss123","Mario","Samperi", "Italy", 1975);
-            Person person2 = new Person (   "marioyyy","mariosss345","Mario","Samperi", "Italy", 1975);
-            Person person3 = new Person (   "mariozzz","mariosss678","Mario","Samperi", "Italy", 1975);
+            Person person2 = new Person (   "marioyyy","mariosss456","Mario","Samperi", "Italy", 1975);
+            Person person3 = new Person (   "mariozzz","mariosss789","Mario","Samperi", "Italy", 1975);
 
 
             personService.saveNewPerson(person1);

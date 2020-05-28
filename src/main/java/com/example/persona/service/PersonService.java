@@ -25,9 +25,9 @@ public class PersonService {
     }
 
 //--------------------------------------
-    // save får en check och går vidare om bara person INTE finns
+    // save får en check och går vidare bara om person INTE finns
     // detta går inte bra för action update: personen finns!
-    // då får acton update en ny metod (updatePerson) utan check.
+    // då får action update en ny metod (updatePerson) utan check.
 
 
     @Transactional
